@@ -38,4 +38,9 @@ func 变量() {
 	_, money := 5, 100000000
 	fmt.Println(money)
 
+	var isFlag bool
+	fmt.Println(isFlag) //默认false
+	isFlag = true
+	fmt.Println(isFlag) //true
+
 }
