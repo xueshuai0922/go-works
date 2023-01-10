@@ -24,7 +24,9 @@ func recoverDemo(i int) {
 	//这里有点类似Java中的匿名函数；错误捕获需要写在可能出现错误前边
 	defer func() {
 		err := recover()
-		fmt.Println(err) //产生异常进行打印异常 ---runtime error: index out of range [10] with length 10
+		if err != nil {
+			fmt.Println(err) //产生异常进行打印异常 ---runtime error: index out of range [10] with length 10
+		}
 	}()
 	arr[i] = 10               //下标越界了，会进行报错，defer延迟函数中对异常进行捕获，并不会影响下一步
 	fmt.Println("1111111111") //这里输出并没有进行，正面recover只是对子函数中的方法进行拦截错误，然后对主函数中的流程不影响

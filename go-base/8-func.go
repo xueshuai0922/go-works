@@ -43,12 +43,39 @@ func main() {
 	//4.2 函数可以作为另一个函数的一个参数 真秒！！
 	ss := funcInside(1, 2, func1)
 	fmt.Println(ss)
+	plus := funcInside(3, 5, func(a int, b int) (s int) {
+		return a * b
+	})
+	fmt.Println("回调函数为参数，回调函数内a*b ", plus)
 
 	//4.3 匿名函数
 	func() {
 		fmt.Println("这是匿名函数")
 	}()
 
+	func(a, b int) {
+		fmt.Println(a + b)
+	}(1, 3)
+
+	res := func(a, b string) string {
+		return a + b
+	}("hello", " world")
+	fmt.Println("匿名函数返回结果值", res)
+	//5 可变参数
+	variable(1, 2, 3, 4, 5)
+	slices := []int{222, 12, 34, 44}
+	variable(slices...)
+	fmt.Println()
+	//6.闭包
+	f := close()
+	i := f()
+	i = f()
+	i = f()
+	fmt.Println("i闭包结果", i)
+
+	f1 := close()
+	j := f1()
+	fmt.Println("j闭包结果", j)
 }
 func swap(x, y string) (string, string) {
 	return y, x
@@ -75,7 +102,24 @@ func func1(a, b int) (s int) {
 /*
 *
 传入一个函数参数 和其他数据类型的参数，根据这个函数参数的不同，实现不同功能
+这里f为回调函数
 */
 func funcInside(a int, b int, f func(int, int) (s int)) int {
 	return f(a, b)
+}
+
+func variable(nums ...int) {
+	for _, v := range nums {
+		fmt.Printf("%T,%d ", v, v)
+	}
+}
+
+// 闭包结构：外层函数的局部变量和内层函数统一整体称为闭包；外层函数的局部变量
+func close() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+
 }
